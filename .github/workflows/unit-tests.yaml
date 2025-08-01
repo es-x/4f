@@ -1,3 +1,4 @@
+---
 name: Unit tests
 
 on:
@@ -14,6 +15,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
+
       - name: Run unit tests
         run: go test -v ./...
