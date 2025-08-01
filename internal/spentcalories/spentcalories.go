@@ -63,12 +63,12 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 		sc, _ := WalkingSpentCalories(steps, weight, height, duration)
 		distance := distance(steps, height)
 		meanSpeed := meanSpeed(steps, height, duration)
-		result = fmt.Sprintf("Тип тренировки: %s\nДлительность: %.2f ч.\nДистанция: %.2f км.\nСкорость:  %.2f км/ч\nСожгли калорий: %.2f ", style, duration, distance, meanSpeed, sc)
+		result = fmt.Sprintf("Тип тренировки: %s\nДлительность: %v ч.\nДистанция: %.2f км.\nСкорость:  %.2f км/ч\nСожгли калорий: %.2f ", style, duration, distance, meanSpeed, sc)
 	case "Бег":
 		sc, _ := RunningSpentCalories(steps, weight, height, duration)
 		distance := distance(steps, height)
 		meanSpeed := meanSpeed(steps, height, duration)
-		result = fmt.Sprintf("Тип тренировки: %s\nДлительность: %.2f ч.\nДистанция: %.2f км.\nСкорость:  %.2f км/ч\nСожгли калорий: %.2f ", style, duration, distance, meanSpeed, sc)
+		result = fmt.Sprintf("Тип тренировки: %s\nДлительность: %v ч.\nДистанция: %.2f км.\nСкорость:  %.2f км/ч\nСожгли калорий: %.2f ", style, duration, distance, meanSpeed, sc)
 	default:
 		fmt.Println("неизвестный тип тренировки")
 	}
