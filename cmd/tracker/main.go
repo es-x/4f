@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/Yandex-Practicum/tracker/internal/daysteps"
-	"github.com/Yandex-Practicum/tracker/internal/spentcalories"
+	// "tracker/internal/daysteps"
+	// "tracker/internal/spentcalories"
+	"github.com/es-x/4f/internal/daysteps"
+	"github.com/es-x/4f/internal/spentcalories"
 )
 
 func main() {

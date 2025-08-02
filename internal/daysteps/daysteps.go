@@ -1,7 +1,14 @@
 package daysteps
 
 import (
+	"errors"
+	"fmt"
+	"log"
+	"strconv"
+	"strings"
 	"time"
+
+	"github.com/es-x/4f/internal/spentcalories"
 )
 
 const (
@@ -12,9 +19,59 @@ const (
 )
 
 func parsePackage(data string) (int, time.Duration, error) {
-	// TODO: реализовать функцию
+	parse := strings.Split(data, ",")
+
+	if len(parse) != 2 {
+		return 0, 0, errors.New("длина слайса меньше 2")
+	}
+	// конвертируем шаги в число, если ошибка то вызываем ошибку
+	steps, err := strconv.Atoi(parse[0])
+	if err != nil {
+		return 0, 0, fmt.Errorf("conversion error: %w", err)
+	}
+
+	if steps <= 0 {
+		return 0, 0, errors.New("число шагов меньше или равно 0")
+	}
+
+	duration, err := time.ParseDuration(parse[1])
+	if err != nil {
+		return 0, 0, err
+	}
+
+	if int(duration) <= 0 {
+		return 0, 0, errors.New("продолжительность 0 или отрицательно")
+	}
+
+	return steps, duration, nil
 }
 
 func DayActionInfo(data string, weight, height float64) string {
-	// TODO: реализовать функцию
+
+	steps, duration, err := parsePackage(data)
+	// проверяем, вернулась ли ошибка
+	if err != nil {
+		// если да, то выводим ее в консоль и завершаем программу
+		log.Println(err)
+		return ""
+	}
+
+	if steps <= 0 {
+		return ""
+	}
+
+	dist := (float64(steps) * stepLength) / mInKm
+
+	calories, err := spentcalories.WalkingSpentCalories(steps, weight, height, duration)
+	if err != nil {
+		return ""
+	}
+
+	result := fmt.Sprintf("Количество шагов: %d.\nДистанция составила %.2f км.\nВы сожгли %.2f ккал.\n", steps, dist, calories)
+
+	return result
 }
+
+// if int(duration) <= 0 {
+// 	return ""
+// }
