@@ -27,7 +27,7 @@ func parsePackage(data string) (int, time.Duration, error) {
 	// конвертируем шаги в число, если ошибка то вызываем ошибку
 	steps, err := strconv.Atoi(parse[0])
 	if err != nil {
-		return 0, 0, errors.New("ошибка преобразования в целое число")
+		return 0, 0, fmt.Errorf("conversion error: %w", err)
 	}
 
 	if steps <= 0 {
